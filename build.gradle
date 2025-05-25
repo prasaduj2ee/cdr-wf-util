@@ -9,8 +9,13 @@ plugins {
 group = 'com.cdr.wf'
 version = '0.0.1-SNAPSHOT'
 
-def projectRoot = file("$projectDir/..") // one level up from 'util/'
-def srcDir = file("${projectRoot}/src")
+sourceSets {
+    main {
+        java {
+            srcDirs = ["${projectDir}/../src"]
+        }
+    }
+}
 
 task checkPaths {
     doLast {
@@ -38,8 +43,7 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-pmd {
-    source = fileTree(dir: srcDir, includes: ['**/*.java'])
+pmd {    
     toolVersion = '7.13.0'
     ruleSetFiles = files('./config/pmd/pmd-ruleset.xml')
     ruleSets = []
@@ -47,7 +51,6 @@ pmd {
 }
 
 checkstyle {
-    source = fileTree(dir: srcDir, includes: ['**/*.java'])
     toolVersion = '10.12.1'
     configFile = file('./config/checkstyle/checkstyle.xml')
     ignoreFailures = false
