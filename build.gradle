@@ -9,11 +9,12 @@ plugins {
 group = 'com.cdr.wf'
 version = '0.0.1-SNAPSHOT'
 
-def srcDir = file("${rootDir}/src")
+def projectRoot = file("$projectDir/..") // one level up from 'util/'
+def srcDir = file("${projectRoot}/src")
 
-task printSources {
+task checkPaths {
     doLast {
-        println "Repo A source directory is at: $srcDir"
+        println "Source path: $srcDir"
     }
 }
 
@@ -38,7 +39,7 @@ tasks.named('test') {
 }
 
 pmd {
-    source = fileTree(dir: "${rootDir}/src", includes: ['**/*.java'])
+    source = fileTree(dir: srcDir, includes: ['**/*.java'])
     toolVersion = '7.13.0'
     ruleSetFiles = files('./config/pmd/pmd-ruleset.xml')
     ruleSets = []
@@ -46,7 +47,7 @@ pmd {
 }
 
 checkstyle {
-    source = fileTree(dir: "${rootDir}/src", includes: ['**/*.java'])
+    source = fileTree(dir: srcDir, includes: ['**/*.java'])
     toolVersion = '10.12.1'
     configFile = file('./config/checkstyle/checkstyle.xml')
     ignoreFailures = false
