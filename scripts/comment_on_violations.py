@@ -179,6 +179,6 @@ def parse_pmd(xml_path):
             post_comment(file_path, line, message)
 
 # --- Main ---
-parse_checkstyle("build/reports/checkstyle/main.xml")
-parse_pmd("build/reports/pmd/main.xml")
+parse_checkstyle("cdr-wf-util/build/reports/checkstyle/main.xml")
+parse_pmd("cdr-wf-util/build/reports/pmd/main.xml")
 post_general_comments()
